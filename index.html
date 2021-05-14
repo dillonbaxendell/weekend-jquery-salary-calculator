@@ -11,22 +11,45 @@
     <script src="client.js" charset="utf-8"></script>
 </head>
 <body>
-    <div class="input fields">
-        <label for="firstName">First Name: </label>
-        <input type="text" placeholder="First Name" id="firstName">
+    <header>
+        <h1>Salary Calculator</h1>
+    </header>
+    <section class="addEmployee">
+        <div>
+            <h2>Add Employee</h2>
+        </div>  
         
-        <label for="lastName">Last Name: </label>
-        <input type="text" placeholder="Last Name" id="lastName">
+        <div>
+            <input type="text" placeholder="First Name" id="firstName">
+        
+            <input type="text" placeholder="Last Name" id="lastName">
 
-        <label for="employeeID">Employee ID: </label>
-        <input type="text" placeholder="Employee ID" id="employeeID">
+            <input type="text" placeholder="ID" id="employeeID">
 
-        <label for="jobTitle">Title: </label>
-        <input type="text" placeholder="Title" id="jobTitle">
+            <input type="text" placeholder="Title" id="jobTitle">
 
-        <label for="annualSalary">Annual Salary: </label>
-        <input type="text" placeholder="Annual Salary" id="annualSalary">
-    </div>
+            <input type="text" placeholder="Annual Salary" id="annualSalary">
+
+            <button class="btn btn-primary" id="submit">Submit</button>
+        </div>  
+    </section>
+    <section class="table">
+        <h2>Employees</h2>
+
+        <table id="employeesTable">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Annual Salary</th>
+                <th></th>
+            </tr>
+
+        </table>
+
+
+    </section>
     
 </body>
 </html>
