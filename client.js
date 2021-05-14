@@ -5,32 +5,8 @@ console.log('js loaded');
 $( document ).ready( readyNow );
 
 // create a variable of employees to store information from input
-const employees= [ {
-    firstName: 'Dillon',
-    lastName: 'Baxendell',
-    employeeNum: 619878,
-    jobTitle: 'Software Developer',
-    annualSalary: 54000
-    }];
+const employees= [];
 
-
-function appendEmployees( listOfEmployees ) {
-    console.log('in appendEmployees');
-    
-    for (let i = 0; i < listOfEmployees.length; i++) {
-        $( '#employeesTable' ).append( `<tr>
-        <td>${listOfEmployees[i].firstName}</td>
-        <td>${listOfEmployees[i].lastName}</td>
-        <td>${listOfEmployees[i].employeeNum}</td>
-        <td>${listOfEmployees[i].jobTitle}</td>
-        <td>${listOfEmployees[i].annualSalary}</td>
-        <td></td>
-    </tr>`)
-        
-    }
-    
-    
-}
 
 
 function readyNow() {
@@ -38,18 +14,41 @@ function readyNow() {
     console.log('DOM IS READY, jquery loaded');
 
     // Click Listeners
-
-
     // load buttons to be ready to function if clicked
     $( '#submit' ).on( 'click', handleSubmit )
 
     //functions to be called upon webpage load
-    appendEmployees( employees );
+
 }
 
 function handleSubmit() {
     console.log('clicked submit!');
 
+    // set variables to the inputs of each field
+    let inputFirstName = $( '#firstName' ).val();
+    let inputLastName = $( '#lastName' ).val();
+    let inputID = Number($( '#employeeID' ).val());
+    let inputTitle = $( '#jobTitle' ).val();
+    let inputSalary = Number($( '#annualSalary' ).val());
 
-    
+    // push the new input employee into the employees list (to store)
+    employees.push({
+        firstName: inputFirstName,
+        lastName: inputLastName,
+        employeeNum: inputID,
+        jobTitle: inputTitle,
+        annualSalary: inputSalary
+        });
+
+    // append the input information to the DOM
+    $( '#employeesTable' ).append( 
+    `<tr>
+        <td>${inputFirstName}</td>
+        <td>${inputLastName}</td>
+        <td>${inputID}</td>
+        <td>${inputTitle}</td>
+        <td>${inputSalary}</td>
+        <td></td>
+    </tr>`
+    );
 }
