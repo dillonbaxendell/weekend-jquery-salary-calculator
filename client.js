@@ -17,6 +17,8 @@ function readyNow() {
     // load buttons to be ready to function if clicked
     $( '#submit' ).on( 'click', handleSubmit )
 
+    $( '.table' ).on( 'click', '.deleteButton', handleDelete );
+
     //functions to be called upon webpage load
 
 }
@@ -48,7 +50,13 @@ function handleSubmit() {
         <td>${inputID}</td>
         <td>${inputTitle}</td>
         <td>${inputSalary}</td>
-        <td></td>
+        <td><button class="deleteButton">DELETE</button></td>
     </tr>`
     );
+}
+
+function handleDelete() {
+    console.log('clicked delete!');
+    
+    $(this).parent().parent().remove();
 }
