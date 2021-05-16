@@ -7,6 +7,8 @@ $( document ).ready( readyNow );
 // create a variable of employees to store information from input
 const employees= [];
 
+// 
+let monthlyCost = 0;
 
 
 function readyNow() {
@@ -53,6 +55,20 @@ function handleSubmit() {
         <td><button class="deleteButton">DELETE</button></td>
     </tr>`
     );
+    
+    calculateMonthlyCost();
+}
+
+function calculateMonthlyCost(){
+    console.log('in calculateMonthlyCost');
+
+    let inputSalary = Number($( '#annualSalary' ).val());
+    let individualCost = Math.round(inputSalary / 12);
+
+    monthlyCost += individualCost;
+
+    $( '#monthlyCost' ).text( `Monthly Cost: $${monthlyCost}` );
+    
 }
 
 function handleDelete() {
