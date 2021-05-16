@@ -4,10 +4,10 @@ console.log('js loaded');
 // DOM ready
 $( document ).ready( readyNow );
 
-// create a variable of employees to store information from input
+// Create a variable of employees to store information from input
 const employees= [];
 
-// 
+// Declare the monthlyCost and set it to zero so we can use it in upcoming functions
 let monthlyCost = 0;
 
 
@@ -43,12 +43,7 @@ function handleSubmit() {
         jobTitle: inputTitle,
         annualSalary: inputSalary
         });
-
-    $( '#firstName' ).val( '' );
-    $( '#lastName' ).val( '' );
-    $( '#employeeID' ).val( '' );
-    $( '#jobTitle' ).val( '' );
-    $( '#annualSalary' ).val( '' );
+    
 
     // append the input information to the DOM in a table format
     $( '#employeesTable' ).append( 
@@ -64,18 +59,33 @@ function handleSubmit() {
     
     // calculate monthly cost by running function calculateMonthlyCost
     calculateMonthlyCost();
+
+     // Empty the input fields
+      $( '#firstName' ).val( '' );
+      $( '#lastName' ).val( '' );
+      $( '#employeeID' ).val( '' );
+      $( '#jobTitle' ).val( '' );
+      $( '#annualSalary' ).val( '' );
 }
 
 // Find the monthly cost of each individual when they're submitted
 function calculateMonthlyCost(){
     console.log('in calculateMonthlyCost');
 
+    // Declare the inputSalary (again?) and the individual cost via their annual salary
     let inputSalary = Number($( '#annualSalary' ).val());
     let individualCost = Math.round(inputSalary / 12);
 
+    // Set the monthly cost plus the individual employee cost
     monthlyCost += individualCost;
 
+    // Replace the text in the monthlyCost HTML heading with the updated monthlyCost variable
     $( '#monthlyCost' ).text( `Monthly Cost: $${monthlyCost}` );
+
+    // IF the monthlyCost is greater than $20000 then assign the class "highlighted" to it
+    if( monthlyCost > 20000 ) {
+        $( '#monthlyCost' ).addClass( 'highlighted' );
+    }
     
 }
 
