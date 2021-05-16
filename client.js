@@ -44,7 +44,13 @@ function handleSubmit() {
         annualSalary: inputSalary
         });
 
-    // append the input information to the DOM
+    $( '#firstName' ).val( '' );
+    $( '#lastName' ).val( '' );
+    $( '#employeeID' ).val( '' );
+    $( '#jobTitle' ).val( '' );
+    $( '#annualSalary' ).val( '' );
+
+    // append the input information to the DOM in a table format
     $( '#employeesTable' ).append( 
     `<tr>
         <td>${inputFirstName}</td>
@@ -56,9 +62,11 @@ function handleSubmit() {
     </tr>`
     );
     
+    // calculate monthly cost by running function calculateMonthlyCost
     calculateMonthlyCost();
 }
 
+// Find the monthly cost of each individual when they're submitted
 function calculateMonthlyCost(){
     console.log('in calculateMonthlyCost');
 
