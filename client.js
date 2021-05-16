@@ -52,8 +52,8 @@ function handleSubmit() {
         <td>${inputLastName}</td>
         <td>${inputID}</td>
         <td>${inputTitle}</td>
-        <td>${inputSalary}</td>
-        <td><button class="deleteButton">DELETE</button></td>
+        <td id="salary">${inputSalary}</td>
+        <td><button class="deleteButton btn btn-outline-danger btn-sm">DELETE</button></td>
     </tr>`
     );
     
@@ -93,4 +93,9 @@ function handleDelete() {
     console.log('clicked delete!');
     
     $(this).parent().parent().remove();
+
+    let individualCost = $(this).find("salary").html();
+
+    console.log(individualCost);
+    
 }
