@@ -19,43 +19,28 @@ function readyNow() {
     // load buttons to be ready to function if clicked
     $( '#submit' ).on( 'click', handleSubmit )
 
-    $( '.table' ).on( 'click', '.deleteButton', handleDelete );
 
-    //functions to be called upon webpage load
+    $( '#target' ).on( 'click', '.deleteButton', handleDelete );
 
 }
 
 function handleSubmit() {
     console.log('clicked submit!');
 
-    // set variables to the inputs of each field
-    let inputFirstName = $( '#firstName' ).val();
-    let inputLastName = $( '#lastName' ).val();
-    let inputID = Number($( '#employeeID' ).val());
-    let inputTitle = $( '#jobTitle' ).val();
-    let inputSalary = Number($( '#annualSalary' ).val());
-
     // push the new input employee into the employees list (to store)
     employees.push({
-        firstName: inputFirstName,
-        lastName: inputLastName,
-        employeeNum: inputID,
-        jobTitle: inputTitle,
-        annualSalary: inputSalary
+        firstName: $( '#firstName' ).val(),
+        lastName: $( '#lastName' ).val(),
+        employeeNum: Number($( '#employeeID' ).val()),
+        jobTitle: $( '#jobTitle' ).val(),
+        annualSalary: Number($( '#annualSalary' ).val())
         });
     
 
     // append the input information to the DOM in a table format
-    $( '#employeesTable' ).append( 
-    `<tr>
-        <td>${inputFirstName}</td>
-        <td>${inputLastName}</td>
-        <td>${inputID}</td>
-        <td>${inputTitle}</td>
-        <td id="salary">${inputSalary}</td>
-        <td><button class="deleteButton btn btn-outline-danger btn-sm">DELETE</button></td>
-    </tr>`
-    );
+    renderEmployees();
+    
+    
     
     // calculate monthly cost by running function calculateMonthlyCost
     calculateMonthlyCost();
@@ -80,11 +65,36 @@ function calculateMonthlyCost(){
     monthlyCost += individualCost;
 
     // Replace the text in the monthlyCost HTML heading with the updated monthlyCost variable
-    $( '#monthlyCost' ).text( `Monthly Cost: $${monthlyCost}` );
+    $( '#monthlyCost' ).text( `Monthly Cost: ${monthlyCost.toLocaleString('en-EN', {style: 'currency', currency: 'USD'})}` );
 
     // IF the monthlyCost is greater than $20000 then assign the class "highlighted" to it
     if( monthlyCost > 20000 ) {
-        $( '#monthlyCost' ).addClass( 'highlighted' );
+        $( '#monthlyCost' ).addClass( 'overbudget' );
+    } else {
+        $( '#monthlyCost' ).removeClass( 'overbudget' );
+    }
+    
+}
+
+function renderEmployees() {
+    console.log('RENDER!');
+
+    $( '#target' ).empty();
+    
+    // append each employee as a new row to the table
+    for (let employee of employees) {
+        console.log('RENDER!');
+
+        $( '#target' ).append( 
+            `<tr>
+                <td>${employee.firstName}</td>
+                <td>${employee.lastName}</td>
+                <td class="idNum">${employee.employeeNum}</td>
+                <td>${employee.jobTitle}</td>
+                <td id="salary">${employee.annualSalary.toLocaleString('en-EN', {style: 'currency', currency: 'USD'})}</td>
+                <td><button class="deleteButton btn btn-outline-danger btn-sm">DELETE</button></td>
+            </tr>`
+            );
     }
     
 }
@@ -94,8 +104,25 @@ function handleDelete() {
     
     $(this).parent().parent().remove();
 
-    let individualCost = $(this).find("salary").html();
 
-    console.log(individualCost);
+    //find employee that we want to delete with their id
+    let idToDelete = $(this).closest('tr').find('idNum').text();
+    console.log(idToDelete);
     
+    let temp = [];
+    //remove them from the employees array
+    for (let employee of employees) {
+        //is this the employee who needs to be removed?
+        if( employee.employeeNum === idToDelete ) {
+            //SHOULD NOT BE IN THE ARRAY
+            //DONT PUSH
+            console.log('removing ', employee);
+            
+        } else {
+            //SHOULD BE IN THE ARRAY
+            temp.push(employee)
+        }
+    }
+
+    employees = temp;
 }
